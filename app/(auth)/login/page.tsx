@@ -37,7 +37,7 @@ export default function LoginPage() {
 
                 {/* logo */}
                 <Image
-                    src="/logo.png"
+                    src="/munchi.png"
                     alt="munchi"
                     width={1000}
                     height={400}

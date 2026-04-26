@@ -41,7 +41,7 @@ export default function PostPage() {
 
     return (
         <div className="p-5 flex flex-col gap-1 pb-20">
-            <Image src="/logo.png" alt="munchi" width={100} height={40} />
+            <Image src="/munchi.png" alt="munchi" width={100} height={40} />
             <h1 className="font-display text-maroon text-2xl italic">Post A New Listing</h1>
             <hr className="border-maroon opacity-20" />
             <p className="font-body text-noir text-sm">Select an Emoji</p>
