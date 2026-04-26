@@ -16,6 +16,7 @@ export default function PostPage() {
     const [distance, setDistance] = useState("")
     const [portions, setPortions] = useState(0)
     const [expiry, setExpiry] = useState(60)
+    const isValid = foodName && host && location && distance && portions > 0 && expiry > 0 && emoji
     const handleSubmit = async () => {
         const expiresAt = new Date(Date.now() + expiry * 60 * 1000).toISOString()
 
@@ -122,7 +123,12 @@ export default function PostPage() {
             </div>
             <button
                 onClick={handleSubmit}
-                className="mt-6 w-full bg-maroon text-cotton py-3 rounded-full font-bold text-sm hover:bg-cherry"
+                disabled={!isValid}
+                className={`mt-6 w-full py-3 rounded-full font-bold text-sm transition-all ${
+                    isValid
+                        ? "bg-maroon text-cotton hover:bg-cherry"
+                        : "bg-beige text-cotton opacity-40 cursor-not-allowed"
+                }`}
             >
                 post it →
             </button>

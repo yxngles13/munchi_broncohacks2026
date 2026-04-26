@@ -9,7 +9,11 @@ const supabase = supabaseBrowser()
 export default function FeedClient({ listings: initialListings }: { listings: any[] }) {
     const [filter, setFilter] = useState("all")
     const [listings, setListings] = useState(initialListings)
-
+    const [university, setUniversity] = useState("")
+    useEffect(() => {
+        const saved = localStorage.getItem("university")
+        if (saved) setUniversity(saved)
+    }, [])
     // real-time subscription goes here, before return
     useEffect(() => {
         const channel = supabase
@@ -27,18 +31,21 @@ export default function FeedClient({ listings: initialListings }: { listings: an
         }
     }, [])
 
-    const filters = ["all", "meals", "drinks", "snacks"]
+    const filters = ["all", "meals", "drinks", "snacks", "vegan"]
     return (
         <>
             <div className="p-5 flex flex-col gap-4 pb-24">
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-5">
                     <Image src="/logo.png" alt="munchi" width={100} height={40} />
-                    <p>@ cpp</p>
+                    {university && (
+                        <span className="font-body text-sm text-noir font-bold">@ {university}</span>
+                    )}
                 </div>
                 <div className="bg-maroon rounded-full px-6 py-3 flex items-center gap-2">
                     <span>🌱</span>
                     <span className="font-display text-beige">100 Meals saved this year</span>
                 </div>
+                <h1 className={"font-display italic text-2xl"}>Food Selection</h1>
                 <hr className="border-maroon opacity-20" />
                 <div className="flex flex-row gap-2 overflow-x-auto">
                     {filters.map(f => (

@@ -57,10 +57,10 @@ export default function ListingCard({ item }: { item: any }) {
                             isExpired
                                 ? "bg-bg text-maroon cursor-not-allowed"
                                 : claimed
-                                    ? "bg-noir text-black cursor-not-allowed"
+                                    ? "bg-maroon text-cotton opacity-60 cursor-not-allowed"
                                     : portionsLeft <= 0
-                                        ? "bg-beige text-beige cursor-not-allowed"
-                                        : "bg-maroon text-beige hover:bg-cherry"
+                                        ? "bg-beige text-noir opacity-40 cursor-not-allowed"
+                                        : "bg-maroon text-cotton hover:bg-cherry"
                         }`}
                     >
                         {isExpired ? "⏰ expired" : claimed ? "✓ on my way!" : portionsLeft <= 0 ? "all gone 😢" : "I want this!"}

@@ -1,12 +1,17 @@
 "use client"
 import Image from "next/image";
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { supabaseBrowser } from "@/lib/supabase-browser"
 
 export default function LoginPage() {
     const supabase = supabaseBrowser()
     const [email, setEmail] = useState("")
     const [sent, setSent] = useState(false)
+    const [university, setUniversity] = useState("")
+    useEffect(() => {
+        const saved = localStorage.getItem("university")
+        if (saved) setUniversity(saved)
+    }, [])
     const handleLogin = async () => {
         const { error } = await supabase.auth.signInWithOtp({
             email,
@@ -48,6 +53,12 @@ export default function LoginPage() {
                         free food on campus, find it fast
                     </p>
                 </div>
+                {university && (
+                    <div className="bg-beige border border-maroon border-opacity-20 rounded-full px-5 py-2 flex items-center gap-2">
+                        <span>🎓</span>
+                        <span className="font-body text-sm text-noir font-bold">{university}</span>
+                    </div>
+                )}
 
                 {/* divider */}
                 <div className="w-full h-[1.5px] bg-maroon opacity-10" />
