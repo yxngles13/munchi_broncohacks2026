@@ -36,7 +36,7 @@ export default function FeedClient({ listings: initialListings }: { listings: an
         <>
             <div className="p-5 flex flex-col gap-4 pb-24">
                 <div className="flex items-center gap-5">
-                    <Image src="/logo.png" alt="munchi" width={100} height={40} />
+                    <Image src="/munchi.png" alt="munchi" width={100} height={40} />
                     {university && (
                         <span className="font-body text-sm text-noir font-bold">@ {university}</span>
                     )}
