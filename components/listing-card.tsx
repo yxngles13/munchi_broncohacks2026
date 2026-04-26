@@ -13,6 +13,7 @@ export default function ListingCard({ item }: { item: any }) {
     )
 
     const isExpired = new Date(item.expires_at).getTime() < Date.now()
+
     const handleClaim = async () => {
         if (claimed || portionsLeft <= 0) return
 
@@ -28,6 +29,9 @@ export default function ListingCard({ item }: { item: any }) {
         if (!claimError && !updateError) {
             setPortionsLeft((prev: number) => prev - 1)
             setClaimed(true)
+            // save to localStorage
+            const saved = JSON.parse(localStorage.getItem("saved") || "[]")
+            localStorage.setItem("saved", JSON.stringify([...saved, item]))
         }
     }
 
