@@ -26,17 +26,26 @@ export default function Countdown({ expiresAt }: { expiresAt: string }) {
     const isExpiringSoon = seconds <= 15 * 60
 
 
+    const isExpired = seconds <= 0
+
+    if (isExpired) {
+        return (
+            <span className="text-cotton text-xs font-bold bg-noir px-2 py-0.5 rounded-full">
+      ⏰ expired
+    </span>
+        )
+    }
+
     return (
         <div className="flex items-center gap-2">
             {isExpiringSoon && (
                 <span className="text-cotton text-xs font-bold bg-cherry px-2 py-0.5 rounded-full">
-         ⚡️expiring soon
+        ⚡️ expiring soon
       </span>
             )}
-        <span className="text-cotton text-sm font-bold">
+            <span className="text-cotton text-sm font-bold">
       {minutes}:{secs.toString().padStart(2, "0")}
     </span>
         </div>
-
     )
 }

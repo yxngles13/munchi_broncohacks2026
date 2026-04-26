@@ -24,7 +24,7 @@ export default function FeedClient({ listings }: { listings: any[] }) {
                     {filters.map(f => (
                         <button key={f} onClick={() => setFilter(f)}
                                 className={`px-4 py-1.5 rounded-full text-xs font-bold whitespace-nowrap ${
-                                    filter === f ? "bg-maroon text-cotton" : "bg-transparent text-noir border border-noir"
+                                    filter === f ? "bg-maroon text-beige" : "bg-transparent text-noir border border-noir"
                                 }`}>
                             {f}
                         </button>

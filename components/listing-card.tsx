@@ -8,7 +8,11 @@ export default function ListingCard({ item }: { item: any }) {
     const [portionsLeft, setPortionsLeft] = useState(item.portions_left)
     const [claimed, setClaimed] = useState(false)
     const supabase = supabaseBrowser()
+    const [seconds, setSeconds] = useState(() =>
+        Math.max(0, Math.floor((new Date(item.expires_at).getTime() - Date.now()) / 1000))
+    )
 
+    const isExpired = new Date(item.expires_at).getTime() < Date.now()
     const handleClaim = async () => {
         if (claimed || portionsLeft <= 0) return
 
@@ -48,16 +52,18 @@ export default function ListingCard({ item }: { item: any }) {
                     <div className="w-full h-[1.5px] bg-maroon opacity-30" />
                     <button
                         onClick={handleClaim}
-                        disabled={claimed || portionsLeft <= 0}
+                        disabled={claimed || portionsLeft <= 0 || isExpired}
                         className={`px-4 py-2 rounded-full font-bold transition-colors ${
-                            claimed
-                                ? "bg-noir text-cotton cursor-not-allowed"
-                                : portionsLeft <= 0
-                                    ? "bg-gray-400 text-white cursor-not-allowed"
-                                    : "bg-maroon text-cotton hover:bg-cherry"
+                            isExpired
+                                ? "bg-bg text-maroon cursor-not-allowed"
+                                : claimed
+                                    ? "bg-noir text-black cursor-not-allowed"
+                                    : portionsLeft <= 0
+                                        ? "bg-beige text-beige cursor-not-allowed"
+                                        : "bg-maroon text-beige hover:bg-cherry"
                         }`}
                     >
-                        {claimed? "✔️ on my way!" : portionsLeft <= 0 ? "all gone 😢" : "I want this!"}
+                        {isExpired ? "⏰ expired" : claimed ? "✓ on my way!" : portionsLeft <= 0 ? "all gone 😢" : "I want this!"}
                     </button>
                 </div>
             </div>
