@@ -17,13 +17,14 @@ export default function FeedClient({ listings: initialListings }: { listings: an
             .on("postgres_changes",
                 { event: "INSERT", schema: "public", table: "listings" },
                 (payload) => {
-                    setListings(prev => [payload.new, ...prev])
+                    setListings(prev => [payload.new as any, ...prev])
                 }
             )
             .subscribe()
-            })
 
-        return () => supabase.removeChannel(channel)
+        return () => {
+            supabase.removeChannel(channel)
+        }
     }, [])
 
     const filters = ["all", "meals", "drinks", "snacks"]

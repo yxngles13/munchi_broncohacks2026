@@ -14,8 +14,8 @@ export default function PostPage() {
     const [host, setHost] = useState("")
     const [location, setLocation] = useState("")
     const [distance, setDistance] = useState("")
-    const [portions, setPortions] = useState()
-    const [expiry, setExpiry] = useState()
+    const [portions, setPortions] = useState(0)
+    const [expiry, setExpiry] = useState(60)
     const handleSubmit = async () => {
         const expiresAt = new Date(Date.now() + expiry * 60 * 1000).toISOString()
 
