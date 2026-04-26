@@ -7,5 +7,9 @@ export default async function FeedPage() {
         .select("*")
         .order("created_at", { ascending: false })
 
-    return <FeedClient listings={listings ?? []} />
+    const { count } = await supabase
+        .from("claims")
+        .select("*", { count: "exact", head: true })
+
+    return <FeedClient listings={listings ?? []} claimsCount={count ?? 0} />
 }

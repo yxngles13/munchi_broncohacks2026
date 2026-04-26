@@ -6,7 +6,7 @@ import ListingCard from "@/components/listing-card"
 import {supabaseBrowser} from "@/lib/supabase-browser";
 const supabase = supabaseBrowser()
 
-export default function FeedClient({ listings: initialListings }: { listings: any[] }) {
+export default function FeedClient({ listings: initialListings, claimsCount }: { listings: any[], claimsCount: number }) {
     const [filter, setFilter] = useState("all")
     const [listings, setListings] = useState(initialListings)
     const [university, setUniversity] = useState("")
@@ -43,7 +43,7 @@ export default function FeedClient({ listings: initialListings }: { listings: an
                 </div>
                 <div className="bg-maroon rounded-full px-6 py-3 flex items-center gap-2">
                     <span>🌱</span>
-                    <span className="font-display text-beige">100 Meals saved this year</span>
+                    <span className="font-display text-beige">{claimsCount} Meals saved this year</span>
                 </div>
                 <h1 className={"font-display italic text-2xl"}>Food Selection</h1>
                 <hr className="border-maroon opacity-20" />
