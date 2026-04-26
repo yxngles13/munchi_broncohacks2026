@@ -3,6 +3,8 @@
 import { useState } from "react"
 import Countdown from "@/components/countdown"
 import { supabaseBrowser } from "@/lib/supabase-browser"
+import { useRouter } from "next/navigation"
+
 
 export default function ListingCard({ item }: { item: any }) {
     const [portionsLeft, setPortionsLeft] = useState(item.portions_left)
@@ -11,6 +13,8 @@ export default function ListingCard({ item }: { item: any }) {
     const [seconds, setSeconds] = useState(() =>
         Math.max(0, Math.floor((new Date(item.expires_at).getTime() - Date.now()) / 1000))
     )
+    const router = useRouter()
+
 
     const isExpired = new Date(item.expires_at).getTime() < Date.now()
 
@@ -29,10 +33,10 @@ export default function ListingCard({ item }: { item: any }) {
         if (!claimError && !updateError) {
             setPortionsLeft((prev: number) => prev - 1)
             setClaimed(true)
-            // save to localStorage
-            const saved = JSON.parse(localStorage.getItem("saved") || "[]")
-            localStorage.setItem("saved", JSON.stringify([...saved, item]))
+            localStorage.setItem("claimed_item", JSON.stringify(item))
+            router.push("/claim")
         }
+
     }
 
     return (
