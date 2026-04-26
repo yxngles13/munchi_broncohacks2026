@@ -1,8 +1,7 @@
 import { supabase } from "@/lib/supabase"
 import FeedClient from "@/components/feed-client"
-
+export const dynamic = 'force-dynamic'
 export default async function FeedPage() {
-    export const dynamic = 'force-dynamic'
     const { data: listings } = await supabase
         .from("listings")
         .select("*")
