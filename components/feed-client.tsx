@@ -1,13 +1,32 @@
 "use client"
 
 import Image from "next/image"
-import { useState } from "react"
+import {useEffect, useState} from "react"
 import ListingCard from "@/components/listing-card"
+import {supabaseBrowser} from "@/lib/supabase-browser";
+const supabase = supabaseBrowser()
 
-export default function FeedClient({ listings }: { listings: any[] }) {
+export default function FeedClient({ listings: initialListings }: { listings: any[] }) {
     const [filter, setFilter] = useState("all")
-    const filters = ["all", "meals", "drinks", "snacks"]
+    const [listings, setListings] = useState(initialListings)
 
+    // real-time subscription goes here, before return
+    useEffect(() => {
+        const channel = supabase
+            .channel("listings")
+            .on("postgres_changes",
+                { event: "INSERT", schema: "public", table: "listings" },
+                (payload) => {
+                    setListings(prev => [payload.new, ...prev])
+                }
+            )
+            .subscribe()
+            })
+
+        return () => supabase.removeChannel(channel)
+    }, [])
+
+    const filters = ["all", "meals", "drinks", "snacks"]
     return (
         <>
             <div className="p-5 flex flex-col gap-4 pb-24">
