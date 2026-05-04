@@ -133,4 +133,4 @@ munchi/
 
 **Yong Thu La Wong** — [@yxngles13](https://github.com/yxngles13)
 
-[LinkedIn](https://linkedin.com/in/yong-thu-la-wong) · [Live Demo](your Vercel URL)
+[LinkedIn](https://linkedin.com/in/yong-thu-la-wong) · [Live Demo]([your Vercel URL](https://munchi-broncohacks2026.vercel.app/))
